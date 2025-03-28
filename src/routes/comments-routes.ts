@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { tokenMiddleware } from "./middlewares/token-middleware";
+import { tokenMiddleware } from "./middleware/token-middleware.js";
 import { createComment, deleteComment, getComments, updateComment } from "../controllers/comments/comments-controller";
 import { CommentError } from "../controllers/comments/comments-types";
 

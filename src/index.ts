@@ -1,9 +1,9 @@
 // src/index.ts
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
-import { allRoutes } from "./routes/routes";
-import { prismaClient } from "./extras/prisma";
-import { env } from "./environment";
+import { allRoutes } from "./routes/routes.js";
+import { prismaClient } from "./extras/prisma.js";
+import { env } from "./environment.js";
 
 const app = new Hono();
 

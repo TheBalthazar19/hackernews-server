@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { tokenMiddleware } from "./middlewares/token-middleware";
+import { tokenMiddleware } from "./middleware/token-middleware";
 import { createLike, deleteLike, getLikes } from "../controllers/likes/likes-controller";
 import { LikeError } from "../controllers/likes/likes-types";
 

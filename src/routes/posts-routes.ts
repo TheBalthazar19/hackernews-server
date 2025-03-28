@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { tokenMiddleware } from "./middlewares/token-middleware";
+import { tokenMiddleware } from "./middleware/token-middleware";
 import { createPost, deletePost, getAllPosts, getMyPosts } from "../controllers/posts/posts-controller";
 import { PostError } from "../controllers/posts/posts-types";
 
