@@ -10,43 +10,46 @@ datasource db {
 
 model User {
   id        String    @id @default(uuid())
-  email     String    @unique
-  name      String
+  username  String    @unique
   password  String
-  createdAt DateTime  @default(now())
-  comments  Comment[]
+  name      String?
+  posts     Post[]
   likes     Like[]
-  Post      Post[]
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Post {
   id        String    @id @default(uuid())
   title     String
-  content   String
-  authorId  String
-  createdAt DateTime  @default(now())
-  comments  Comment[]
+  url       String?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
   likes     Like[]
-  User      User      @relation(fields: [authorId], references: [id])
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Like {
   id        String   @id @default(uuid())
-  postId    String
   userId    String
-  createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
   user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
 
-  @@unique([postId, userId])
+  @@unique([userId, postId])
 }
 
 model Comment {
   id        String   @id @default(uuid())
   text      String
-  postId    String
   userId    String
-  createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
   user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
