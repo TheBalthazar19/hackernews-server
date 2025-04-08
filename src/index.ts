@@ -4,12 +4,30 @@ import { serve } from "@hono/node-server";
 import { allRoutes } from "./routes/routes";
 import { prismaClient } from "./extras/prisma";
 import { env } from "./environment";
+import { appDocs } from "./docs/swagger";
+import { swaggerUI } from "@hono/swagger-ui";
 
 const app = new Hono();
 
 // Mount all routes
 app.route("/", allRoutes);
+const openApiSpec = appDocs.getOpenAPIDocument({
+  openapi: '3.1.0',
+  info: {
+      title: 'HackerNews API',
+      version: '1.0.0',
+      description: 'API for a social media application'
+  }
+})
 
+
+
+app.get('/docs/openapi.json', (c) => {
+  return c.json(openApiSpec)
+})
+
+
+app.get('/docs', swaggerUI({ url: '/docs/openapi.json' }))
 // Error handling middleware
 app.onError((err, c) => {
   console.error(`${err}`);
